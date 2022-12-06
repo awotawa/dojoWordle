@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@emotion/native": "^11.10.0",
+    "@expo-google-fonts/roboto": "^0.2.2",
     "@expo/webpack-config": "^0.17.0",
     "expo": "~46.0.9",
+    "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
