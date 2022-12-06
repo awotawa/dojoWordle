@@ -70,7 +70,7 @@ export function WordleKeyboard({
   );
 }
 
-const ContainerView = styled.View({ padding: 8 });
+const ContainerView = styled.View(({ theme }) => ({ padding: theme.spacing }));
 
 const RowContainer = styled.View({
   flexDirection: "row",
