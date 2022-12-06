@@ -28,6 +28,7 @@ export default function App() {
         <StatusBar style="auto" />
         <GameViewContainer>
           <Game />
+          <LetterBox letter="A" />
         </GameViewContainer>
       </ThemeProvider>
     </SafeAreaProvider>
