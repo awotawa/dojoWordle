@@ -9,7 +9,7 @@ import { LetterBox } from '../components/LetterBox';
 import { useLoadFonts } from '../shared/services/fonts/useLoadFonts';
 import { theme } from '../shared/services/theme/theme';
 
-export default function App() {
+export default function Home() {
   const { areFontsLoaded } = useLoadFonts();
 
   useEffect(() => {
