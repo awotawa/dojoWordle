@@ -1,3 +1,4 @@
+import { typography } from './typography';
 
 const spacing = {
   4: 4,
@@ -34,4 +35,5 @@ const palette = {
 export const theme = {
     spacing,
     palette,
+    typography,
 }
