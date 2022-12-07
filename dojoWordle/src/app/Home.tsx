@@ -2,7 +2,6 @@ import styled from '@emotion/native';
 import React, { useEffect } from 'react';
 import { Game } from '../components/Game';
 import * as SplashScreen from 'expo-splash-screen';
-import { LetterBox } from '../components/LetterBox';
 import { useLoadFonts } from '../shared/services/fonts/useLoadFonts';
 
 export default function Home() {
@@ -20,7 +19,6 @@ export default function Home() {
 
   return (
     <GameViewContainer>
-      <LetterBox letter="" />
       <Game />
     </GameViewContainer>
   );

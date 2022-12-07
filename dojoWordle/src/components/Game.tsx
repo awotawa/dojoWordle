@@ -1,11 +1,17 @@
+import styled from '@emotion/native';
 import React from 'react';
-import { View } from 'react-native';
 import { WordleKeyboard } from './Keyboard';
+import { LetterBox } from './LetterBox';
 
 export function Game() {
   return (
-    <View>
+    <GameView>
+      <LetterBox letter={'A'} validity={'nofill'} />
       <WordleKeyboard />
-    </View>
+    </GameView>
   );
 }
+
+const GameView = styled.View({
+  alignItems: 'center',
+});

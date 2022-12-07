@@ -1,21 +1,20 @@
 import styled from '@emotion/native';
-import React, { useState } from 'react';
+import React from 'react';
+
+export type Validity = 'valid' | 'semivalid' | 'invalid' | 'nofill';
 
 type LetterBoxProps = {
   letter: string;
+  validity: Validity;
 };
 
-export const LetterBox = ({ letter }: LetterBoxProps) => {
-  const [validity] = useState<Validity>('nofill');
-
+export const LetterBox = ({ letter, validity }: LetterBoxProps) => {
   return (
     <LetterBoxContainer validity={validity}>
       <TextContainer>{letter}</TextContainer>
     </LetterBoxContainer>
   );
 };
-
-type Validity = 'valid' | 'semivalid' | 'invalid' | 'nofill';
 
 const LetterBoxContainer = styled.View<{ validity: Validity }>(
   ({ validity, theme }) => ({

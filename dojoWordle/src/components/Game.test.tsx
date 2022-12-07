@@ -6,6 +6,6 @@ import React from 'react';
 describe('Game', () => {
   it('should display properly', () => {
     renderWithProviders(<Game />);
-    expect(screen.getByText('Hello Worldle ! ')).toBeTruthy();
+    expect(screen.getAllByText('A').length).toEqual(2); // A from Keyboard and LetterBox
   });
 });
