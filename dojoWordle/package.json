@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test:jest": "jest",
-    "test:jest:watch": "jest --watch --runInBand --bail"
+    "test:jest:watch": "jest --watch --runInBand --bail",
+    "test:lint": "eslint . --max-warnings=0"
   },
   "dependencies": {
     "@emotion/native": "^11.10.0",
