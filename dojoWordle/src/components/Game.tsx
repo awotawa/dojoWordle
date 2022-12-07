@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { WordleKeyboard } from './Keyboard';
 
 export function Game() {
   return (
     <View>
-      <Text>Hello Worldle ! </Text>
+      <WordleKeyboard />
     </View>
   );
 }

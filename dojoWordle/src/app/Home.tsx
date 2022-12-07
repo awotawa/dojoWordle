@@ -20,8 +20,8 @@ export default function Home() {
 
   return (
     <GameViewContainer>
+      <LetterBox letter="" />
       <Game />
-      <LetterBox letter="A" />
     </GameViewContainer>
   );
 }
