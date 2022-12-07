@@ -33,7 +33,7 @@ const palette = {
 } as const;
 
 export const theme = {
-    spacing,
-    palette,
-    typography,
-}
+  spacing,
+  palette,
+  typography,
+};

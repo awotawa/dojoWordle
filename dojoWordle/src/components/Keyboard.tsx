@@ -1,20 +1,20 @@
-import React from "react";
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React from 'react';
+import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const KEY_HEIGHT = 55;
 
 const lines = [
-  ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p"],
-  ["q", "s", "d", "f", "g", "h", "j", "k", "l", "m"],
-  ["enter", "w", "x", "c", "v", "b", "n", "del"],
+  ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+  ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'],
+  ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'del'],
 ];
 
 const getKeyWidthFactor = (key: string): number => {
   switch (key) {
-    case "enter":
+    case 'enter':
       return 2;
-    case "del":
+    case 'del':
       return 2;
     default:
       return 1;
@@ -34,10 +34,10 @@ export function WordleKeyboard({
 }: Props) {
   const pressKey = (key: string) => {
     switch (key) {
-      case "enter":
+      case 'enter':
         onEnterPress?.();
         return;
-      case "del":
+      case 'del':
         onDelPress?.();
         return;
       default:
@@ -46,10 +46,10 @@ export function WordleKeyboard({
   };
 
   return (
-    <SafeAreaView edges={["bottom"]}>
+    <SafeAreaView edges={['bottom']}>
       <View style={style.container}>
         {lines.map((line) => (
-          <View style={style.row} key={line.join("")}>
+          <View style={style.row} key={line.join('')}>
             {line.map((key) => (
               <View style={letterStyle(key)} key={key}>
                 <TouchableOpacity
@@ -74,16 +74,16 @@ const style = StyleSheet.create({
     padding: 8,
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 
   letter: {
     borderRadius: 4,
-    backgroundColor: "#C0C0C0",
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#C0C0C0',
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
