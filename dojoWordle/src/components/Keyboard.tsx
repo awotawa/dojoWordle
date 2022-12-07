@@ -1,5 +1,6 @@
+import styled from '@emotion/native';
 import React from 'react';
-import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const KEY_HEIGHT = 55;
@@ -47,50 +48,49 @@ export function WordleKeyboard({
 
   return (
     <SafeAreaView edges={['bottom']}>
-      <View style={style.container}>
+      <ContainerView>
         {lines.map((line) => (
-          <View style={style.row} key={line.join('')}>
+          <RowContainer key={line.join('')}>
             {line.map((key) => (
-              <View style={letterStyle(key)} key={key}>
+              <LetterContainerStyle keyName={key} key={key}>
                 <TouchableOpacity
                   onPress={() => pressKey(key)}
                   activeOpacity={0.7}
                 >
-                  <View style={style.letter}>
+                  <LetterView>
                     <Text>{key.toLocaleUpperCase()}</Text>
-                  </View>
+                  </LetterView>
                 </TouchableOpacity>
-              </View>
+              </LetterContainerStyle>
             ))}
-          </View>
+          </RowContainer>
         ))}
-      </View>
+      </ContainerView>
     </SafeAreaView>
   );
 }
 
-const style = StyleSheet.create({
-  container: {
-    padding: 8,
-  },
-  row: {
-    flexDirection: 'row',
-  },
+const ContainerView = styled.View(({ theme }) => ({
+  padding: theme.spacing[8],
+}));
 
-  letter: {
-    borderRadius: 4,
-    backgroundColor: '#C0C0C0',
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const RowContainer = styled.View({
+  flexDirection: 'row',
 });
 
-const letterStyle = (key: string) => {
-  return {
-    width: `${getKeyWidthFactor(key) * 10}%`,
+const LetterView = styled.View(({ theme }) => ({
+  borderRadius: 4,
+  backgroundColor: theme.palette.lightGrey,
+  height: '100%',
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const LetterContainerStyle = styled.View<{ keyName: string }>(
+  ({ keyName, theme }) => ({
+    width: `${getKeyWidthFactor(keyName) * 10}%`,
     height: KEY_HEIGHT,
-    padding: 4,
-  };
-};
+    padding: theme.spacing[4],
+  })
+);
