@@ -8,16 +8,16 @@ const config = {
   testPathIgnorePatterns: ['\\.snap$', '<rootDir>/node_modules/'],
   cacheDirectory: '.jest/cache',
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
-  coveragePathIgnorePatterns: ['/node_modules/'],  
+  coveragePathIgnorePatterns: ['/node_modules/'],
   clearMocks: true,
   fakeTimers: {
     enableGlobally: true,
   },
   watchPlugins: [
-    "jest-watch-typeahead/filename",
-    "jest-watch-typeahead/testname",
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname',
   ],
-  reporters: ["default", "github-actions"], // Remove this line if your CI is not on Github actions
+  reporters: ['default', 'github-actions'], // Remove this line if your CI is not on Github actions
 };
 
 module.exports = config;
