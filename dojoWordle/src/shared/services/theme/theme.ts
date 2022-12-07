@@ -30,10 +30,17 @@ const palette = {
   darkGrey: '#333333',
   red: '#DC045B',
   warning: '#DF7B11',
+  yellow: '#E6CC00',
 } as const;
 
 export const theme = {
   spacing,
   palette,
   typography,
+  color: {
+    valid: palette.appleGreen,
+    semivalid: palette.yellow,
+    invalid: palette.red,
+    nofill: palette.white,
+  },
 };
