@@ -1,13 +1,9 @@
 import styled from '@emotion/native';
-import { ThemeProvider } from '@emotion/react';
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Game } from '../components/Game';
 import * as SplashScreen from 'expo-splash-screen';
 import { LetterBox } from '../components/LetterBox';
 import { useLoadFonts } from '../shared/services/fonts/useLoadFonts';
-import { theme } from '../shared/services/theme/theme';
 
 export default function Home() {
   const { areFontsLoaded } = useLoadFonts();
@@ -23,15 +19,10 @@ export default function Home() {
   }
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider theme={theme}>
-        <StatusBar style="auto" />
-        <GameViewContainer>
-          <Game />
-          <LetterBox letter="A" />
-        </GameViewContainer>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <GameViewContainer>
+      <Game />
+      <LetterBox letter="A" />
+    </GameViewContainer>
   );
 }
 
