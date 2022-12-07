@@ -1,5 +1,6 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
+  preset: 'react-native',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transform: {
     '^.+\\.(js)$': '<rootDir>/node_modules/babel-jest',
@@ -9,6 +10,7 @@ const config = {
   cacheDirectory: '.jest/cache',
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coveragePathIgnorePatterns: ['/node_modules/'],
+  // setupFiles: ['./jest/test-setup.js'],
   clearMocks: true,
   fakeTimers: {
     enableGlobally: true,
