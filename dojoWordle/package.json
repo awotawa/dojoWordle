@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test:jest": "jest",
+    "test:jest:watch": "jest --watch --runInBand --bail"
   },
   "dependencies": {
     "@emotion/native": "^11.10.0",
