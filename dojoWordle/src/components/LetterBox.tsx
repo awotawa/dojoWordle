@@ -40,8 +40,11 @@ type LetterBoxProps = {
 export const LetterBox = ({ letter, validity }: LetterBoxProps) => {
   return (
     <LetterBoxContainer testID="letterbox" validity={validity}>
-      {letter === null && <TextContainer>.</TextContainer>}
-      {letter !== null && <TextContainer>{letter.toUpperCase()}</TextContainer>}
+      {letter === null ? (
+        <TextContainer>.</TextContainer>
+      ) : (
+        <TextContainer>{letter.toUpperCase()}</TextContainer>
+      )}
     </LetterBoxContainer>
   );
 };
