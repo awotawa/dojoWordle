@@ -11,6 +11,7 @@ const config = {
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coveragePathIgnorePatterns: ['/node_modules/'],
   // setupFiles: ['./jest/test-setup.js'],
+  setupFilesAfterEnv: ['./jest/setupFileAfterEnv.ts'],
   clearMocks: true,
   fakeTimers: {
     enableGlobally: true,
