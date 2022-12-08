@@ -5,19 +5,16 @@ import { LetterBox, PossibleLetter, Validity } from './LetterBox';
 
 export function Game() {
   const [letter, setLetter] = useState<PossibleLetter>(null);
-  const [validity, setValidity] = useState<Validity>('nofill');
 
   return (
     <GameView>
-      <LetterBox letter={letter} validity={validity} />
+      <LetterBox letter={letter} validity={checkValidity(letter)} />
       <WordleKeyboard
         onKeyPress={(letter) => {
           setLetter(letter);
-          checkValidity(letter, setValidity);
         }}
         onDelPress={() => {
           setLetter(null);
-          setValidity('nofill');
         }}
       />
     </GameView>
@@ -28,15 +25,13 @@ const GameView = styled.View({
   alignItems: 'center',
 });
 
-const checkValidity = (
-  letter: PossibleLetter,
-  setValidity: (validity: Validity) => void
-) => {
+const checkValidity = (letter: PossibleLetter): Validity => {
   const validLetter = 'z';
-  if (validLetter === letter) {
-    setValidity('valid');
+  if (letter === validLetter) {
+    return 'valid';
   }
-  if (validLetter !== letter) {
-    setValidity('invalid');
+  if (letter === null) {
+    return 'nofill';
   }
+  return 'invalid';
 };
