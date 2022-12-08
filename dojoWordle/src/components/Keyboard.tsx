@@ -2,6 +2,7 @@ import styled from '@emotion/native';
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { PossibleLetter } from './LetterBox';
 
 const KEY_HEIGHT = 55;
 
@@ -11,7 +12,7 @@ const lines = [
   ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'del'],
 ];
 
-const getKeyWidthFactor = (key: string): number => {
+const getKeyWidthFactor = (key: PossibleLetter): number => {
   switch (key) {
     case 'enter':
       return 2;
@@ -23,7 +24,7 @@ const getKeyWidthFactor = (key: string): number => {
 };
 
 interface Props {
-  onKeyPress?: (key: string) => void;
+  onKeyPress?: (key: PossibleLetter) => void;
   onEnterPress?: () => void;
   onDelPress?: () => void;
 }

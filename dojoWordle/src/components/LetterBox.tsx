@@ -2,9 +2,39 @@ import styled from '@emotion/native';
 import React from 'react';
 
 export type Validity = 'valid' | 'semivalid' | 'invalid' | 'nofill';
+export type PossibleLetter =
+  | ''
+  | 'a'
+  | 'z'
+  | 'e'
+  | 'r'
+  | 't'
+  | 'y'
+  | 'u'
+  | 'i'
+  | 'o'
+  | 'p'
+  | 'q'
+  | 's'
+  | 'd'
+  | 'f'
+  | 'g'
+  | 'h'
+  | 'j'
+  | 'k'
+  | 'l'
+  | 'm'
+  | 'enter'
+  | 'w'
+  | 'x'
+  | 'c'
+  | 'v'
+  | 'b'
+  | 'n'
+  | 'del';
 
 type LetterBoxProps = {
-  letter: string;
+  letter: PossibleLetter;
   validity: Validity;
 };
 
