@@ -1,13 +1,25 @@
 import styled from '@emotion/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { WordleKeyboard } from './Keyboard';
-import { LetterBox } from './LetterBox';
+import { LetterBox, PossibleLetter, Validity } from './LetterBox';
 
 export function Game() {
+  const [letter, setLetter] = useState<PossibleLetter>('');
+  const [validity, setValidity] = useState<Validity>('nofill');
+
   return (
     <GameView>
-      <LetterBox letter={'A'} validity={'nofill'} />
-      <WordleKeyboard />
+      <LetterBox letter={letter} validity={validity} />
+      <WordleKeyboard
+        onKeyPress={(letter) => {
+          setLetter(letter);
+          checkValidity(letter, setValidity);
+        }}
+        onDelPress={() => {
+          setLetter('');
+          setValidity('nofill');
+        }}
+      />
     </GameView>
   );
 }
@@ -15,3 +27,16 @@ export function Game() {
 const GameView = styled.View({
   alignItems: 'center',
 });
+
+const checkValidity = (
+  letter: PossibleLetter,
+  setValidity: (validity: Validity) => void
+) => {
+  const validLetter = 'z';
+  if (validLetter === letter) {
+    setValidity('valid');
+  }
+  if (validLetter !== letter) {
+    setValidity('invalid');
+  }
+};
