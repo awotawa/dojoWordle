@@ -2,8 +2,7 @@ import styled from '@emotion/native';
 import React from 'react';
 
 export type Validity = 'valid' | 'semivalid' | 'invalid' | 'nofill';
-export type PossibleLetter =
-  | ''
+export type Letter =
   | 'a'
   | 'z'
   | 'e'
@@ -24,14 +23,14 @@ export type PossibleLetter =
   | 'k'
   | 'l'
   | 'm'
-  | 'enter'
   | 'w'
   | 'x'
   | 'c'
   | 'v'
   | 'b'
-  | 'n'
-  | 'del';
+  | 'n';
+
+export type PossibleLetter = Letter | null;
 
 type LetterBoxProps = {
   letter: PossibleLetter;
@@ -41,7 +40,8 @@ type LetterBoxProps = {
 export const LetterBox = ({ letter, validity }: LetterBoxProps) => {
   return (
     <LetterBoxContainer testID="letterbox" validity={validity}>
-      <TextContainer>{letter.toUpperCase()}</TextContainer>
+      {letter === null && <TextContainer>.</TextContainer>}
+      {letter !== null && <TextContainer>{letter.toUpperCase()}</TextContainer>}
     </LetterBoxContainer>
   );
 };

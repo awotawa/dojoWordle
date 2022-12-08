@@ -2,9 +2,11 @@ import styled from '@emotion/native';
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { PossibleLetter } from './LetterBox';
+import { Letter, PossibleLetter } from './LetterBox';
 
 const KEY_HEIGHT = 55;
+
+export type KeyboardKeys = Letter | 'del' | 'enter';
 
 const lines = [
   ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
@@ -12,7 +14,7 @@ const lines = [
   ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'del'],
 ];
 
-const getKeyWidthFactor = (key: PossibleLetter): number => {
+const getKeyWidthFactor = (key: KeyboardKeys): number => {
   switch (key) {
     case 'enter':
       return 2;
@@ -34,7 +36,7 @@ export function WordleKeyboard({
   onEnterPress,
   onDelPress,
 }: Props) {
-  const pressKey = (key: string) => {
+  const pressKey = (key: KeyboardKeys) => {
     switch (key) {
       case 'enter':
         onEnterPress?.();
@@ -88,7 +90,7 @@ const LetterView = styled.View(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const LetterContainerStyle = styled.View<{ keyName: string }>(
+const LetterContainerStyle = styled.View<{ keyName: KeyboardKeys }>(
   ({ keyName, theme }) => ({
     width: `${getKeyWidthFactor(keyName) * 10}%`,
     height: KEY_HEIGHT,

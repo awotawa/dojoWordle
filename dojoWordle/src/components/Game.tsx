@@ -4,7 +4,7 @@ import { WordleKeyboard } from './Keyboard';
 import { LetterBox, PossibleLetter, Validity } from './LetterBox';
 
 export function Game() {
-  const [letter, setLetter] = useState<PossibleLetter>('');
+  const [letter, setLetter] = useState<PossibleLetter>(null);
   const [validity, setValidity] = useState<Validity>('nofill');
 
   return (
@@ -16,7 +16,7 @@ export function Game() {
           checkValidity(letter, setValidity);
         }}
         onDelPress={() => {
-          setLetter('');
+          setLetter(null);
           setValidity('nofill');
         }}
       />
