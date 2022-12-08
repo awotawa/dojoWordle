@@ -8,7 +8,7 @@ const KEY_HEIGHT = 55;
 
 export type KeyboardKeys = Letter | 'del' | 'enter';
 
-const lines = [
+const lines: KeyboardKeys[][] = [
   ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
   ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'],
   ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'del'],
