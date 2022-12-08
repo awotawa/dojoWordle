@@ -1,3 +1,5 @@
+import { typography } from './typography';
+
 const spacing = {
   4: 4,
   8: 8,
@@ -23,14 +25,22 @@ const palette = {
   darkGreen: '#207474',
   appleGreen: '#B3CC20',
   beige: '#F4F6E6',
+  lightGrey: '#C0C0C0',
   grey: '#888888',
   darkGrey: '#333333',
   red: '#DC045B',
   warning: '#DF7B11',
-  lightGrey: '#E1E1E1',
+  yellow: '#E6CC00',
 } as const;
 
 export const theme = {
-    spacing,
-    palette,
-}
+  spacing,
+  palette,
+  typography,
+  color: {
+    valid: palette.appleGreen,
+    semivalid: palette.yellow,
+    invalid: palette.red,
+    nofill: palette.white,
+  },
+};

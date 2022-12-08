@@ -1,21 +1,24 @@
-import styled from "@emotion/native";
-import React from "react";
-import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import styled from '@emotion/native';
+import React from 'react';
+import { TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Letter, PossibleLetter } from './LetterBox';
 
 const KEY_HEIGHT = 55;
 
-const lines = [
-  ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p"],
-  ["q", "s", "d", "f", "g", "h", "j", "k", "l", "m"],
-  ["enter", "w", "x", "c", "v", "b", "n", "del"],
+export type KeyboardKeys = Letter | 'del' | 'enter';
+
+const lines: KeyboardKeys[][] = [
+  ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+  ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'],
+  ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'del'],
 ];
 
-const getKeyWidthFactor = (key: string): number => {
+const getKeyWidthFactor = (key: KeyboardKeys): number => {
   switch (key) {
-    case "enter":
+    case 'enter':
       return 2;
-    case "del":
+    case 'del':
       return 2;
     default:
       return 1;
@@ -23,7 +26,7 @@ const getKeyWidthFactor = (key: string): number => {
 };
 
 interface Props {
-  onKeyPress?: (key: string) => void;
+  onKeyPress?: (key: PossibleLetter) => void;
   onEnterPress?: () => void;
   onDelPress?: () => void;
 }
@@ -33,12 +36,12 @@ export function WordleKeyboard({
   onEnterPress,
   onDelPress,
 }: Props) {
-  const pressKey = (key: string) => {
+  const pressKey = (key: KeyboardKeys) => {
     switch (key) {
-      case "enter":
+      case 'enter':
         onEnterPress?.();
         return;
-      case "del":
+      case 'del':
         onDelPress?.();
         return;
       default:
@@ -47,10 +50,10 @@ export function WordleKeyboard({
   };
 
   return (
-    <SafeAreaView edges={["bottom"]}>
+    <SafeAreaView edges={['bottom']} testID="keyboard">
       <ContainerView>
         {lines.map((line) => (
-          <RowContainer key={line.join("")}>
+          <RowContainer key={line.join('')}>
             {line.map((key) => (
               <LetterContainerStyle keyName={key} key={key}>
                 <TouchableOpacity
@@ -70,25 +73,27 @@ export function WordleKeyboard({
   );
 }
 
-const ContainerView = styled.View(({ theme }) => ({ padding: theme.spacing }));
+const ContainerView = styled.View(({ theme }) => ({
+  padding: theme.spacing[8],
+}));
 
 const RowContainer = styled.View({
-  flexDirection: "row",
+  flexDirection: 'row',
 });
 
-const LetterView = styled.View({
+const LetterView = styled.View(({ theme }) => ({
   borderRadius: 4,
-  backgroundColor: "#C0C0C0",
-  height: "100%",
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-});
+  backgroundColor: theme.palette.lightGrey,
+  height: '100%',
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
 
-const LetterContainerStyle = styled.View<{ keyName: string }>(
-  ({ keyName }) => ({
+const LetterContainerStyle = styled.View<{ keyName: KeyboardKeys }>(
+  ({ keyName, theme }) => ({
     width: `${getKeyWidthFactor(keyName) * 10}%`,
     height: KEY_HEIGHT,
-    padding: 4,
+    padding: theme.spacing[4],
   })
 );
