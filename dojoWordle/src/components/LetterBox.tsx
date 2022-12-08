@@ -30,5 +30,5 @@ const LetterBoxContainer = styled.View<{ validity: Validity }>(
 );
 
 const TextContainer = styled.Text(({ theme }) => ({
-  ...theme.typography.title.title1,
+  ...theme.typography.title,
 }));
