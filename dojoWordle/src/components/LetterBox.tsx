@@ -41,7 +41,7 @@ type LetterBoxProps = {
 export const LetterBox = ({ letter, validity }: LetterBoxProps) => {
   return (
     <LetterBoxContainer testID="letterbox" validity={validity}>
-      <TextContainer>{letter}</TextContainer>
+      <TextContainer>{letter.toUpperCase()}</TextContainer>
     </LetterBoxContainer>
   );
 };
