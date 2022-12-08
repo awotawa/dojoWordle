@@ -10,7 +10,7 @@ type LetterBoxProps = {
 
 export const LetterBox = ({ letter, validity }: LetterBoxProps) => {
   return (
-    <LetterBoxContainer validity={validity}>
+    <LetterBoxContainer testID="letterbox" validity={validity}>
       <TextContainer>{letter}</TextContainer>
     </LetterBoxContainer>
   );

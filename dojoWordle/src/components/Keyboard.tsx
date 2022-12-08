@@ -47,7 +47,7 @@ export function WordleKeyboard({
   };
 
   return (
-    <SafeAreaView edges={['bottom']}>
+    <SafeAreaView edges={['bottom']} testID="keyboard">
       <ContainerView>
         {lines.map((line) => (
           <RowContainer key={line.join('')}>
