@@ -12,18 +12,30 @@ describe('Game', () => {
   it('should be able to add letter and it displays properly', () => {
     renderWithProviders(<Game />);
     fireEvent.press(screen.getByText('T'));
-    expect(screen).toMatchSnapshot();
+    expect(
+      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
+        .children[0].props.letter
+    ).toEqual('t');
   });
   it('should be able to delete a letter from word and it displays properly', () => {
     renderWithProviders(<Game />);
     fireEvent.press(screen.getByText('T'));
-    expect(screen).toMatchSnapshot();
+    expect(
+      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
+        .children[0].props.letter
+    ).toEqual('t');
     fireEvent.press(screen.getByText('DEL'));
-    expect(screen).toMatchSnapshot();
+    expect(
+      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
+        .children[0].props.letter
+    ).toEqual(null);
   });
   it('should be able to delete a letter from an empty word and it displays properly', () => {
     renderWithProviders(<Game />);
     fireEvent.press(screen.getByText('DEL'));
-    expect(screen).toMatchSnapshot();
+    expect(
+      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
+        .children[0].props.letter
+    ).toEqual(null);
   });
 });

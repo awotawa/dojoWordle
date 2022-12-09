@@ -11,7 +11,7 @@ export function Game() {
 
   return (
     <GameView>
-      <WordleLetters>
+      <WordleLetters testID="wordleLetters">
         {word.map((letter, index) => (
           <LetterBox letter={letter} validity={'nofill'} key={index} />
         ))}
