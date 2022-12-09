@@ -1,6 +1,6 @@
 import { renderWithProviders } from '../../jest/utils/renderWithProviders';
 import { Game } from './Game';
-import { fireEvent, screen } from '@testing-library/react-native';
+import { fireEvent, screen, within } from '@testing-library/react-native';
 import React from 'react';
 
 describe('Game', () => {
@@ -12,30 +12,21 @@ describe('Game', () => {
   it('should be able to add letter and it displays properly', () => {
     renderWithProviders(<Game />);
     fireEvent.press(screen.getByText('T'));
-    expect(
-      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
-        .children[0].props.letter
-    ).toEqual('t');
+    const wordleLetters = within(screen.getByTestId('wordleLetters'));
+    expect(wordleLetters.getByText('T')).toBeTruthy();
   });
   it('should be able to delete a letter from word and it displays properly', () => {
     renderWithProviders(<Game />);
     fireEvent.press(screen.getByText('T'));
-    expect(
-      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
-        .children[0].props.letter
-    ).toEqual('t');
+    const wordleLetters = within(screen.getByTestId('wordleLetters'));
+    expect(wordleLetters.getByText('T')).toBeTruthy();
     fireEvent.press(screen.getByText('DEL'));
-    expect(
-      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
-        .children[0].props.letter
-    ).toEqual(null);
+    expect(wordleLetters.queryByText('T')).toBeFalsy();
   });
   it('should be able to delete a letter from an empty word and it displays properly', () => {
     renderWithProviders(<Game />);
     fireEvent.press(screen.getByText('DEL'));
-    expect(
-      screen.getByTestId('wordleLetters')['_fiber']['stateNode'].props
-        .children[0].props.letter
-    ).toEqual(null);
+    const wordleLetters = within(screen.getByTestId('wordleLetters'));
+    expect(wordleLetters.getAllByText('.').length).toEqual(6);
   });
 });
