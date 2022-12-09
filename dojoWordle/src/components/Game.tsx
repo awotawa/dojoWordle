@@ -13,17 +13,14 @@ export function Game() {
     <GameView>
       <WordleLetters testID="wordleLetters">
         {word.map((letter, index) => (
-          <LetterBox letter={letter} validity={'nofill'} key={index} />
+          <LetterBox
+            letter={letter}
+            validity={'nofill'}
+            key={`${index}-${letter}`}
+          />
         ))}
       </WordleLetters>
-      <WordleKeyboard
-        onKeyPress={(letter) => {
-          addToWord(letter);
-        }}
-        onDelPress={() => {
-          removeFromWord();
-        }}
-      />
+      <WordleKeyboard onKeyPress={addToWord} onDelPress={removeFromWord} />
     </GameView>
   );
 }
