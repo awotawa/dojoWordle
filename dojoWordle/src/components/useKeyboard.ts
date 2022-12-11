@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Word } from "./Game";
-import { Letter, PossibleLetter, Validity } from "./LetterBox";
+import { PossibleLetter, Validity } from "./LetterBox";
 
 export const findIndexOfFirstNullValueInWord = (array: Word) => {
     const isNull = (element: PossibleLetter) => element === null;
