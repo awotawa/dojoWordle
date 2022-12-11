@@ -7,6 +7,8 @@ export const findIndexOfFirstNullValueInWord = (array: Word) => {
     return array.findIndex(isNull);
 };
 
+export const useKeyboard = () => {
+
     const [word, setWord] = useState<Word>(new Array(6).fill(null));
 
     const addToWord = (letter: PossibleLetter): void => {
@@ -23,7 +25,6 @@ export const findIndexOfFirstNullValueInWord = (array: Word) => {
     };
 
     const removeFromWord = () => {
-        setChecking(false)
         setWord((word) => {
             const newWord = [...word];
             const indexOfFirstNull = findIndexOfFirstNullValueInWord(newWord);
@@ -37,7 +38,6 @@ export const findIndexOfFirstNullValueInWord = (array: Word) => {
             newWord[indexOfFirstNull - 1] = null;
             return newWord;
         })
-        setWord(newWord);
     };
     return {
         word,
