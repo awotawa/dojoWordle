@@ -29,4 +29,16 @@ describe('Game', () => {
     const wordleLetters = within(screen.getByTestId('wordleLetters'));
     expect(wordleLetters.getAllByText('.').length).toEqual(6);
   });
+
+  it("should display properly when the correct word is 'wordle' and the user input is 'combat'", () => {
+    renderWithProviders(<Game />);
+    fireEvent.press(screen.getByText('C'));
+    fireEvent.press(screen.getByText('O'));
+    fireEvent.press(screen.getByText('M'));
+    fireEvent.press(screen.getByText('B'));
+    fireEvent.press(screen.getByText('A'));
+    fireEvent.press(screen.getByText('T'));
+    fireEvent.press(screen.getByText('ENTER'));
+    expect(screen).toMatchSnapshot();
+  });
 });

@@ -2,12 +2,15 @@ import styled from '@emotion/native';
 import React, { useState } from 'react';
 import { WordleKeyboard } from './Keyboard';
 import { LetterBox, PossibleLetter, Validity } from './LetterBox';
-import { useKeyboard } from './useKeyboard';
+import { findIndexOfFirstNullValueInWord, useKeyboard } from './useKeyboard';
 
 export type Word = PossibleLetter[];
 
 export function Game() {
-  const { word, addToWord, removeFromWord } = useKeyboard();
+  const { word, addToWord, removeFromWord, validate, checkLetterValidity } =
+    useKeyboard({
+      correctWord: 'wordle',
+    });
 
   return (
     <GameView>
@@ -15,12 +18,16 @@ export function Game() {
         {word.map((letter, index) => (
           <LetterBox
             letter={letter}
-            validity={'nofill'}
+            validity={checkLetterValidity({ index })}
             key={`${index}-${letter}`}
           />
         ))}
       </WordleLetters>
-      <WordleKeyboard onKeyPress={addToWord} onDelPress={removeFromWord} />
+      <WordleKeyboard
+        onKeyPress={addToWord}
+        onDelPress={removeFromWord}
+        onEnterPress={validate}
+      />
     </GameView>
   );
 }
@@ -33,14 +40,3 @@ const WordleLetters = styled.View({
   flexDirection: 'row',
   justifyContent: 'flex-start',
 });
-
-const checkValidity = (letter: PossibleLetter): Validity => {
-  const validLetter = 'z';
-  if (letter === validLetter) {
-    return 'valid';
-  }
-  if (letter === null) {
-    return 'nofill';
-  }
-  return 'invalid';
-};
