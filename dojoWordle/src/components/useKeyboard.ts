@@ -1,11 +1,30 @@
 import { useState } from "react";
 import { Word } from "./Game";
-import { PossibleLetter, Validity } from "./LetterBox";
+import { Letter, PossibleLetter, Validity } from "./LetterBox";
 
 export const findIndexOfFirstNullValueInWord = (array: Word) => {
     const isNull = (element: PossibleLetter) => element === null;
     return array.findIndex(isNull);
 };
+
+type CheckWordProps = {
+    word: PossibleLetter[],
+    correctWord: string
+}
+type Validation = 'x' | 'o';
+
+export const checkWord = ({word, correctWord}: CheckWordProps): Validation[] => {
+    const checkedWord: Validation[] = []
+    word.forEach((letter, index) => {
+        if (letter === correctWord[index]){
+            checkedWord.push('o')
+        }
+        if (letter !== correctWord[index]){
+            checkedWord.push('x')
+        }
+    })
+    return checkedWord
+}
 
 type useKeyboardProps = {
     correctWord: string
@@ -51,21 +70,6 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
         }
     }
 
-    type Validation = 'x' | 'o';
-
-    const checkWord = (): Validation[] => {
-        const checkedWord: Validation[] = []
-        word.forEach((letter, index) => {
-            if (letter === correctWord[index]){
-                checkedWord.push('o')
-            }
-            if (letter !== correctWord[index]){
-                checkedWord.push('x')
-            }
-        })
-        return checkedWord
-    }
-
     type checkLetterValidityProps = {
         index: number;
     };
@@ -73,7 +77,7 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
     const checkLetterValidity = ({
     index,
     }: checkLetterValidityProps): Validity => {
-    const checkedWord = checkWord();
+    const checkedWord = checkWord({word, correctWord});
     const indexOfFirstNull = findIndexOfFirstNullValueInWord(word);
     if (indexOfFirstNull === -1 && checking) {
         if (checkedWord[index] === 'o') {
@@ -91,6 +95,7 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
         addToWord,
         removeFromWord,
         validate,
+        checkWord,
         checkLetterValidity
     };
 };
