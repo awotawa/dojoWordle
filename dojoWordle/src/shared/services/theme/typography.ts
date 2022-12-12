@@ -1,10 +1,10 @@
 const fontSizes = {
-  XXL: 48,
+  XL: 36,
 };
 
 const title = {
   fontFamily: 'Gotham-Medium',
-  fontSize: fontSizes.XXL,
+  fontSize: fontSizes.XL,
 };
 
 export const typography = {
