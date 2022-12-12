@@ -39,7 +39,7 @@ export const theme = {
   typography,
   color: {
     valid: palette.appleGreen,
-    semivalid: palette.yellow,
+    misplaced: palette.yellow,
     invalid: palette.red,
     nofill: palette.white,
   },

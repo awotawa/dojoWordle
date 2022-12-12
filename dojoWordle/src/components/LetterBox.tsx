@@ -1,7 +1,7 @@
 import styled from '@emotion/native';
 import React from 'react';
 
-export type Validity = 'valid' | 'semivalid' | 'invalid' | 'nofill';
+export type Validity = 'valid' | 'misplaced' | 'invalid' | 'nofill';
 export type Letter =
   | 'a'
   | 'z'

@@ -109,7 +109,7 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
             return 'invalid';
         }
         if (checkedWord[index] === '-') {
-            return 'semivalid';
+            return 'misplaced';
         }
     }
         return 'nofill';

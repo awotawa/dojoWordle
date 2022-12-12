@@ -12,8 +12,8 @@ describe('LetterBox', () => {
     renderWithProviders(<LetterBox letter="b" validity="valid" />);
     expect(screen).toMatchSnapshot();
   });
-  it("should display properly when it's semivalid and be yellow", () => {
-    renderWithProviders(<LetterBox letter="a" validity="semivalid" />);
+  it("should display properly when it's misplaced and be yellow", () => {
+    renderWithProviders(<LetterBox letter="a" validity="misplaced" />);
     expect(screen).toMatchSnapshot();
   });
   it("should display properly when it's invalid and be red", () => {
