@@ -1,28 +1,35 @@
 import styled from '@emotion/native';
-import React, { useState } from 'react';
+import React from 'react';
+import { View } from 'react-native';
 import { WordleKeyboard } from './Keyboard';
-import { LetterBox, PossibleLetter, Validity } from './LetterBox';
-import { findIndexOfFirstNullValueInWord, useKeyboard } from './useKeyboard';
+import { LetterBox, PossibleLetter } from './LetterBox';
+import { useKeyboard } from './useKeyboard';
 
 export type Word = PossibleLetter[];
 
 export function Game() {
-  const { word, addToWord, removeFromWord, validate, checkLetterValidity } =
+  const { attempts, addToWord, removeFromWord, validate, checkLetterValidity } =
     useKeyboard({
       correctWord: 'wordle',
     });
 
   return (
     <GameView>
-      <WordleLetters testID="wordleLetters">
-        {word.map((letter, index) => (
-          <LetterBox
-            letter={letter}
-            validity={checkLetterValidity({ index })}
-            key={`${index}-${letter}`}
-          />
+      <View testID="attempts">
+        {attempts.map((attempt, indexOfAttempt) => (
+          <View key={`attempt#${indexOfAttempt + 1}`}>
+            <WordleLetters testID={`wordleLetters${indexOfAttempt + 1}`}>
+              {attempt.map((letter, index) => (
+                <LetterBox
+                  letter={letter}
+                  validity={checkLetterValidity({ indexOfAttempt, index })}
+                  key={`${index}-${letter}`}
+                />
+              ))}
+            </WordleLetters>
+          </View>
         ))}
-      </WordleLetters>
+      </View>
       <WordleKeyboard
         onKeyPress={addToWord}
         onDelPress={removeFromWord}

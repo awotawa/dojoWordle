@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useState } from "react";
 import { Word } from "./Game";
 import { Letter, PossibleLetter, Validity } from "./LetterBox";
@@ -63,71 +64,81 @@ type useKeyboardProps = {
 }
 
 export const useKeyboard = ({correctWord}: useKeyboardProps) => {
-    const [word, setWord] = useState<Word>(new Array(6).fill(null));
-    const [checking, setChecking] = useState<boolean>(false);
+    const [attempts, setAttempt] = useState<Word[]>([[null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null]]);
+    const [attemptIndex, setAttemptIndex] = useState<number>(0);
+    const numberOfPossibleAttempts = 5;
 
     const addToWord = (letter: PossibleLetter): void => {
-        setWord(word => {
-            const newWord = [...word];
-            const indexOfFirstNull = findIndexOfFirstNullValueInWord(newWord);
-            if (indexOfFirstNull === -1) {
-                return newWord;
-            }
-            newWord[indexOfFirstNull] = letter;
-            return newWord;
-        })
+        if(attemptIndex < numberOfPossibleAttempts){
+            setAttempt(attempts => {
+                const newAttempt = _.cloneDeep(attempts);
+                const indexOfFirstNull = findIndexOfFirstNullValueInWord(newAttempt[attemptIndex]);
+                if (indexOfFirstNull === -1) {
+                    return newAttempt;
+                }
+                newAttempt[attemptIndex][indexOfFirstNull] = letter;
+                return newAttempt;
+            })
+        }
 
     };
 
     const removeFromWord = () => {
-        setChecking(false)
-        setWord((word) => {
-            const newWord = [...word];
-            const indexOfFirstNull = findIndexOfFirstNullValueInWord(newWord);
-            if (indexOfFirstNull === -1) {
-                newWord[5] = null;
-                return newWord;
-            }
-            if (indexOfFirstNull === 0) {
-                return newWord;
-            }
-            newWord[indexOfFirstNull - 1] = null;
-            return newWord;
-        })
+        if(attemptIndex < numberOfPossibleAttempts){
+            setAttempt(attempts => {
+                const newAttempt = [...attempts];
+                const newWord = newAttempt[attemptIndex]
+                const indexOfFirstNull = findIndexOfFirstNullValueInWord(newAttempt[attemptIndex]);
+                if (indexOfFirstNull === -1) {
+                    newAttempt[attemptIndex][newAttempt[attemptIndex].length - 1] = null;
+                    return newAttempt;
+                }
+                if (indexOfFirstNull === 0) {
+                    return newAttempt;
+                }
+                newAttempt[attemptIndex][indexOfFirstNull - 1] = null;
+                return newAttempt;
+            })
+        }
     };
 
     const validate = () => {
-        const indexOfFirstNull = findIndexOfFirstNullValueInWord(word);
-        if (indexOfFirstNull === -1){
-            setChecking(true)
+        if(attemptIndex < numberOfPossibleAttempts){
+            const indexOfFirstNull = findIndexOfFirstNullValueInWord(attempts[attemptIndex]);
+            if (indexOfFirstNull === -1){
+                setAttemptIndex(attemptIndex => attemptIndex + 1)
+            }
         }
     }
 
     type checkLetterValidityProps = {
         index: number;
+        indexOfAttempt: number;
     };
 
     const checkLetterValidity = ({
     index,
+    indexOfAttempt
     }: checkLetterValidityProps): Validity => {
-    const checkedWord = checkWord({word, correctWord});
-    const indexOfFirstNull = findIndexOfFirstNullValueInWord(word);
-    if (indexOfFirstNull === -1 && checking) {
-        if (checkedWord[index] === 'o') {
-            return 'valid';
+        const word = attempts[indexOfAttempt];
+        const checkedWord = checkWord({word, correctWord});
+        const indexOfFirstNull = findIndexOfFirstNullValueInWord(word);
+        if (indexOfFirstNull === -1 && indexOfAttempt < attemptIndex) {
+            if (checkedWord[index] === 'o') {
+                return 'valid';
+            }
+            if (checkedWord[index] === 'x') {
+                return 'invalid';
+            }
+            if (checkedWord[index] === '-') {
+                return 'misplaced';
+            }
         }
-        if (checkedWord[index] === 'x') {
-            return 'invalid';
-        }
-        if (checkedWord[index] === '-') {
-            return 'misplaced';
-        }
-    }
         return 'nofill';
     };
 
     return {
-        word,
+        attempts,
         addToWord,
         removeFromWord,
         validate,
