@@ -66,10 +66,10 @@ type useKeyboardProps = {
 export const useKeyboard = ({correctWord}: useKeyboardProps) => {
     const [attempts, setAttempt] = useState<Word[]>([[null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null]]);
     const [attemptIndex, setAttemptIndex] = useState<number>(0);
-    
+    const numberOfPossibleAttempts = 5;
 
     const addToWord = (letter: PossibleLetter): void => {
-        if(attemptIndex < 5){
+        if(attemptIndex < numberOfPossibleAttempts){
             setAttempt(attempts => {
                 const newAttempt = _.cloneDeep(attempts);
                 const indexOfFirstNull = findIndexOfFirstNullValueInWord(newAttempt[attemptIndex]);
@@ -84,7 +84,7 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
     };
 
     const removeFromWord = () => {
-        if(attemptIndex < 5){
+        if(attemptIndex < numberOfPossibleAttempts){
             setAttempt(attempts => {
                 const newAttempt = [...attempts];
                 const newWord = newAttempt[attemptIndex]
@@ -103,7 +103,7 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
     };
 
     const validate = () => {
-        if(attemptIndex < 5){
+        if(attemptIndex < numberOfPossibleAttempts){
             const indexOfFirstNull = findIndexOfFirstNullValueInWord(attempts[attemptIndex]);
             if (indexOfFirstNull === -1){
                 setAttemptIndex(attemptIndex => attemptIndex + 1)
