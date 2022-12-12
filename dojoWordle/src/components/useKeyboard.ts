@@ -16,7 +16,7 @@ type Validation = 'x' | 'o' | '-';
 export const checkWord = ({word, correctWord}: CheckWordProps): Validation[] => {
 
         const numberOfLettersFromCorrectWord = new Map<Letter, number>();
-
+        
         const arrayCorrectWord = correctWord.split('') as Letter[];
 
         for(let letter of arrayCorrectWord){
@@ -28,19 +28,30 @@ export const checkWord = ({word, correctWord}: CheckWordProps): Validation[] => 
             }
         }
 
-        const checkedWord: Validation[] = []
+        const intermediateCheckedWord: Validation[] = []
         word.forEach((letter, index) => {
             if(letter !== null){
                 if(letter === arrayCorrectWord[index]){
-                    checkedWord.push('o')
+                    intermediateCheckedWord.push('o');
+                    numberOfLettersFromCorrectWord.set(letter, numberOfLettersFromCorrectWord.get(letter)! - 1);
                 }
                 if(letter !== arrayCorrectWord[index]){
-                    if(numberOfLettersFromCorrectWord.has(letter) === true){
-                        checkedWord.push('-')
-                    }
-                    if(numberOfLettersFromCorrectWord.has(letter) !== true){
-                        checkedWord.push('x')
-                    }
+                    intermediateCheckedWord.push('x');
+                }
+            }
+        });
+        const checkedWord: Validation[] = []
+        intermediateCheckedWord.forEach((validationSign, index)=> {
+            if(validationSign === 'o'){
+                checkedWord.push(validationSign);
+            }
+            if(validationSign === 'x'){
+                if(numberOfLettersFromCorrectWord.has(word[index] as Letter) !== true || numberOfLettersFromCorrectWord.get(word[index] as Letter)! === 0){
+                    checkedWord.push(validationSign);
+                }
+                if(numberOfLettersFromCorrectWord.has(word[index] as Letter) === true && numberOfLettersFromCorrectWord.get(word[index] as Letter)! > 0){
+                    numberOfLettersFromCorrectWord.set(word[index] as Letter, numberOfLettersFromCorrectWord.get(word[index] as Letter)! - 1);
+                    checkedWord.push('-');
                 }
             }
         });
