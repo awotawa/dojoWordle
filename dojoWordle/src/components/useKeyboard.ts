@@ -66,7 +66,7 @@ type useKeyboardProps = {
 export const useKeyboard = ({correctWord}: useKeyboardProps) => {
     const [attempts, setAttempt] = useState<Word[]>([[null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null], [null, null, null, null, null, null]]);
     const [attemptIndex, setAttemptIndex] = useState<number>(0);
-    const [checking, setChecking] = useState<boolean>(false);
+    
 
     const addToWord = (letter: PossibleLetter): void => {
         if(attemptIndex < 5){
