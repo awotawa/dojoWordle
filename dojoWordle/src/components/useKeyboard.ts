@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Word } from "./Game";
-import { PossibleLetter, Validity } from "./LetterBox";
+import { Letter, PossibleLetter, Validity } from "./LetterBox";
 
 export const findIndexOfFirstNullValueInWord = (array: Word) => {
     const isNull = (element: PossibleLetter) => element === null;
@@ -11,20 +11,41 @@ type CheckWordProps = {
     word: PossibleLetter[],
     correctWord: string
 }
-type Validation = 'x' | 'o';
+type Validation = 'x' | 'o' | '-';
 
 export const checkWord = ({word, correctWord}: CheckWordProps): Validation[] => {
-    const checkedWord: Validation[] = []
-    word.forEach((letter, index) => {
-        if (letter === correctWord[index]){
-            checkedWord.push('o')
+
+        const numberOfLettersFromCorrectWord = new Map<Letter, number>();
+
+        const arrayCorrectWord = correctWord.split('') as Letter[];
+
+        for(let letter of arrayCorrectWord){
+            if (numberOfLettersFromCorrectWord.has(letter) === true){
+                numberOfLettersFromCorrectWord.set(letter, numberOfLettersFromCorrectWord.get(letter)! + 1);
+            }
+            if (numberOfLettersFromCorrectWord.has(letter) === false){
+                numberOfLettersFromCorrectWord.set(letter, 1);
+            }
         }
-        if (letter !== correctWord[index]){
-            checkedWord.push('x')
-        }
-    })
-    return checkedWord
-}
+
+        const checkedWord: Validation[] = []
+        word.forEach((letter, index) => {
+            if(letter !== null){
+                if(letter === arrayCorrectWord[index]){
+                    checkedWord.push('o')
+                }
+                if(letter !== arrayCorrectWord[index]){
+                    if(numberOfLettersFromCorrectWord.has(letter) === true){
+                        checkedWord.push('-')
+                    }
+                    if(numberOfLettersFromCorrectWord.has(letter) !== true){
+                        checkedWord.push('x')
+                    }
+                }
+            }
+        });
+        return checkedWord
+    }
 
 type useKeyboardProps = {
     correctWord: string
@@ -48,6 +69,7 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
     };
 
     const removeFromWord = () => {
+        setChecking(false)
         setWord((word) => {
             const newWord = [...word];
             const indexOfFirstNull = findIndexOfFirstNullValueInWord(newWord);
@@ -85,6 +107,9 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
         }
         if (checkedWord[index] === 'x') {
             return 'invalid';
+        }
+        if (checkedWord[index] === '-') {
+            return 'semivalid';
         }
     }
         return 'nofill';
