@@ -90,7 +90,7 @@ export const useKeyboard = ({correctWord}: useKeyboardProps) => {
                 const newWord = newAttempt[attemptIndex]
                 const indexOfFirstNull = findIndexOfFirstNullValueInWord(newAttempt[attemptIndex]);
                 if (indexOfFirstNull === -1) {
-                    newAttempt[attemptIndex][5] = null;
+                    newAttempt[attemptIndex][newAttempt[attemptIndex].length - 1] = null;
                     return newAttempt;
                 }
                 if (indexOfFirstNull === 0) {
