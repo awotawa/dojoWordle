@@ -36,7 +36,7 @@ exports[`LetterBox should display properly when it's invalid and be red 1`] = `
 </View>
 `;
 
-exports[`LetterBox should display properly when it's semivalid and be yellow 1`] = `
+exports[`LetterBox should display properly when it's misplaced and be yellow 1`] = `
 <View
   style={
     [
@@ -54,7 +54,7 @@ exports[`LetterBox should display properly when it's semivalid and be yellow 1`]
     ]
   }
   testID="letterbox"
-  validity="semivalid"
+  validity="misplaced"
 >
   <Text
     style={
